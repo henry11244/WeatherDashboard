@@ -49,6 +49,7 @@ var pullRequest = (cityName) => {
         method: 'GET',
     }).then(function (response) {
         console.log(response);
+        console.log(response.status);
         cityDetails = response
         lat = response[0].lat
         lon = response[0].lon
