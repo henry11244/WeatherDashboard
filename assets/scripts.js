@@ -21,8 +21,13 @@ for (var x = 0; x < 6; x++) {
     var section = $('<section>');
     $('body').append(section);
     var h2 = $('<h2>')
+    var newImg = $('<img>')
+    newImg.addClass(`${x}img`)
     section.append(h2)
+    section.append(newImg)
     section.addClass(`${x}Data`);
+
+
     for (var i = 0; i < 5; i++) {
         var div = $('<div>');
         section.append(div);
@@ -41,7 +46,9 @@ newP()
 
 var cityInputValue = document.querySelector('#cityInputValue')
 
-$('#cityInput').submit(function (e) {
+
+
+function submit(e) {
     e.preventDefault();
     tempArray = [];
     windArray = [];
@@ -53,7 +60,9 @@ $('#cityInput').submit(function (e) {
     pullRequest(city)
     $('.invalidCity').css('display', 'none')
     $('button').remove()
-})
+}
+
+$('#cityInput').submit(submit)
 
 
 var pullRequest = (cityName) => {
@@ -88,6 +97,7 @@ var pullRequest = (cityName) => {
             uvArray.push(currentUV)
             iconArray.push(currentIcon)
 
+
             for (var i = 1; i < 6; i++) {
                 var wind = weatherData.daily[i].wind_speed;
                 var humidity = weatherData.daily[i].humidity;
@@ -103,12 +113,38 @@ var pullRequest = (cityName) => {
 
             for (var i = 0; i < 6; i++) {
 
+
+
+                var imgs = document.querySelectorAll('img')
+
+                imgs[i].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[i]}@2x.png`)
+
+
+
+
                 $(`.${i}Data`).children().eq(0).text(new Date(UniTime + miliSecondsInDay * i).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" }));
-                $(`.${i}Data`).children().eq(1).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`);
-                $(`.${i}Data`).children().eq(2).text('Wind: ' + windArray[i] + 'MPH');
-                $(`.${i}Data`).children().eq(3).text('Humidity: ' + humidityArray[i] + "%");
-                $(`.${i}Data`).children().eq(4).text('UV Index: ' + uvArray[i]);;
+                $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`);
+                $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH');
+                $(`.${i}Data`).children().eq(4).text('Humidity: ' + humidityArray[i] + "%");
+                $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]);
+                if (uvArray[1] > 10) {
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'purple')
+                }
+                else if (uvArray[1] > 7) {
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'red')
+                }
+                if (uvArray[1] > 5) {
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'orange')
+                }
+                else if (uvArray[1] > 2) {
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'yellow')
+                }
+                else {
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'green')
+                }
+
             }
+
 
         });
     }).done(function () {
@@ -116,6 +152,7 @@ var pullRequest = (cityName) => {
         localStorage.setItem('locationSearches', JSON.stringify(locationSearches))
         for (var i = 0; i < locationSearches.length; i++) {
             var button = $('<button>')
+            button.submit(submit)
             button.text(locationSearches[i])
             $('#priorSearches').append(button)
         }
