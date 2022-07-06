@@ -36,6 +36,10 @@ button:active {
     align-items: center;
     justify-content: space-between;
     height: 100%;
+}
 
+body {
+    background-image: linear-gradient(rgba(238, 255, 83, 0.564), rgb(247, 245, 245));
 
+    background-attachment: fixed;
 }

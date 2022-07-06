@@ -2,6 +2,7 @@ var span = $('<span>')
 var superscript = $('<sup>')
 var degreeSign = superscript.text('o')
 var fahrenheit = span.text('F')
+var timeBlock = $('.timeBlock')
 var tempArray = []
 var windArray = []
 var humidityArray = []
@@ -12,6 +13,11 @@ var UniTime = parseInt(Math.floor(moment()))
 var miliSecondsInDay = 86400000
 var todays = new Date(UniTime + miliSecondsInDay * 3)
 console.log(todays)
+
+setInterval(function () {
+    timeBlock.text(moment()), 1000
+})
+
 
 var locationSearches = []
 if (JSON.parse(localStorage.getItem('locationSearches') !== null)) { locationSearches = JSON.parse(localStorage.getItem('locationSearches')) }
