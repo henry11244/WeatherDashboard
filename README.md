@@ -33,7 +33,7 @@
 
 ## About The Project
 
-The motivation behind this project is to make a user friendly dashboard that can pull weather data from any location and convert as well as display the information that is both useful and readable.
+The motivation behind this project is to design an intuitive dashboard that can pull weather data for any location as well as display information that is both useful and readable to the user.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -52,8 +52,8 @@ The motivation behind this project is to make a user friendly dashboard that can
 
 Once you have navagated to the webpage: 
 
-- You are presented with the current date, time and weather for the upcoming week.
-- You are able to navagate down to the search bar and enter a city in which you wish to view weather data for.
+- You are presented with the current date and time.
+- You are able to navagate to the search bar and enter a city in which you wish to view weather data for.
 - Weather information is then displayed for the current day as well as the next five days.
 - Prior searches are saved locally so they persist on refreshing the webpage.
 
