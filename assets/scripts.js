@@ -2,7 +2,6 @@ var span = $('<span>')
 var superscript = $('<sup>')
 var degreeSign = superscript.text('o')
 var fahrenheit = span.text('F')
-
 var tempArray = []
 var windArray = []
 var humidityArray = []
@@ -17,16 +16,26 @@ console.log(todays)
 var locationSearches = []
 if (JSON.parse(localStorage.getItem('locationSearches') !== null)) { locationSearches = JSON.parse(localStorage.getItem('locationSearches')) }
 
+for (var i = 0; i < locationSearches.length; i++) {
+    var button = $('<button>')
+    button.click(function () {
+        cityInputValue.value = this.className
+        $('#cityInput').submit()
+    })
+    button.text(locationSearches[i]).addClass(locationSearches[i])
+    $('#priorSearches').append(button)
+}
+
 for (var x = 0; x < 6; x++) {
     var section = $('<section>');
-    $('body').append(section);
+    section.addClass('dailyForecast')
+    $('#forcast').append(section);
     var h2 = $('<h2>')
     var newImg = $('<img>')
-    newImg.addClass(`${x}img`)
-    section.append(h2)
+    newImg.addClass(`${x}img col-5 img`)
+    section.append(h2).addClass('col-2 d-flex flex-column')
     section.append(newImg)
     section.addClass(`${x}Data`);
-
 
     for (var i = 0; i < 5; i++) {
         var div = $('<div>');
@@ -46,8 +55,6 @@ newP()
 
 var cityInputValue = document.querySelector('#cityInputValue')
 
-
-
 function submit(e) {
     e.preventDefault();
     tempArray = [];
@@ -59,12 +66,12 @@ function submit(e) {
     console.log(city)
     success = false;
     pullRequest(city)
+    $('#priorSearches').css('display', 'block')
     $('.invalidCity').css('display', 'none')
     $('button').remove()
 }
 
 $('#cityInput').submit(submit)
-
 
 var pullRequest = (cityName) => {
     $.ajax({
@@ -114,41 +121,37 @@ var pullRequest = (cityName) => {
 
             for (var i = 0; i < 6; i++) {
 
-
-
                 var imgs = document.querySelectorAll('img')
 
                 imgs[i].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[i]}@2x.png`)
-
-                $(`.${i}Data`).children().eq(0).text(new Date(UniTime + miliSecondsInDay * i).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" }));
-                $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`);
-                $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH');
-                $(`.${i}Data`).children().eq(4).text('Humidity: ' + humidityArray[i] + "%");
-                $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]);
+                imgs[i].style.display = ('block')
+                $(`.${i}Data`).children().eq(0).text(new Date(UniTime + miliSecondsInDay * i).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" })).addClass('text');
+                $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`).addClass('text');
+                $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH').addClass('text');
+                $(`.${i}Data`).children().eq(4).text('Humidity: ' + humidityArray[i] + "%").addClass('text');
+                $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]).addClass('col-7 ml-0 pl-0 text');
                 if (uvArray[i] > 10) {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'purple')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'purple').css('height', '25px')
                 }
                 else if (uvArray[i] > 7) {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'red')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'red').css('height', '25px')
                 }
                 if (uvArray[i] > 5) {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'orange')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'orange').css('height', '25px')
                 }
                 else if (uvArray[i] > 2) {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'yellow')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'yellow').css('height', '25px')
                 }
                 else {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'green')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'green').css('height', '25px')
                 }
-
             }
-
 
         });
     }).done(function () {
         repeat = false
         for (var i = 0; i < locationSearches.length; i++) {
-            if (cityName == locationSearches[i]) { repeat = true }
+            if (cityName.trim() == locationSearches[i].trim()) { repeat = true }
         }
         if (repeat == false) {
             locationSearches.unshift(cityName);
@@ -163,8 +166,12 @@ var pullRequest = (cityName) => {
             button.text(locationSearches[i]).addClass(locationSearches[i])
             $('#priorSearches').append(button)
         }
+
     })
-        .fail(function () { $('.invalidCity').css('display', 'block') })
+        .fail(function () {
+            $('.invalidCity').css('display', 'block');
+            $('#priorSearches').text = '    ';
+        })
 }
 
 

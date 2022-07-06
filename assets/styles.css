@@ -1,0 +1,16 @@
+.img {
+    display: none
+}
+
+#priorSearches {
+    display: none
+}
+
+.text {
+    font-size: 3vh;
+}
+
+.dailyForecast {
+    display: flex;
+    height: 1px
+}
