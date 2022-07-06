@@ -40,6 +40,13 @@ button:active {
 
 body {
     background-image: linear-gradient(rgba(238, 255, 83, 0.564), rgb(247, 245, 245));
-
     background-attachment: fixed;
+}
+
+.jumbotron {
+    background-color: rgb(165, 255, 255);
+}
+
+.display-4 {
+    font-weight: bold;
 }

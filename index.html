@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body>
@@ -18,13 +17,13 @@
         <div class="container">
             <h1 class="display-4">Weather Dashboard</h1>
             <p class="lead">The best web-based weather application! </p>
-            <p class="timeBlock"></p>
+            <div class="timeBlock"></div>
         </div>
     </div>
     <div class="d-flex">
         <div class='col-2'>
             <form id="cityInput" class='d-flex flex-column ml-2'>
-                <input class="form-control" type="text" placeholder="Default input" id="cityInputValue">
+                <input class="form-control text-center" type="text" placeholder="Enter City" id="cityInputValue">
             </form>
             <div id="priorSearchesHeader" class="text-center">Prior Searches:</div>
             <div id="priorSearches" class="d-flex flex-column align-items-center"></div>
