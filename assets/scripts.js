@@ -1,4 +1,3 @@
-
 // Declaring variables
 var span = $('<span>')
 var superscript = $('<sup>')
@@ -54,7 +53,6 @@ for (var x = 0; x < 6; x++) {
     section.append(h2).addClass('col-2 d-flex flex-column')
     section.append(newImg)
     section.addClass(`${x}Data`);
-
     for (var i = 0; i < 5; i++) {
         var div = $('<div>');
         section.append(div);
@@ -99,13 +97,10 @@ var pullRequest = (cityName) => {
         url: `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=676c57c39d556b42d524ee448e04b39d`,
         method: 'GET',
     }).then(function (response) {
-        console.log(response);
         cityDetails = response
         responseStatus = response.status
         lat = response[0].lat
         lon = response[0].lon
-        console.log(lat)
-        console.log(lon)
         success = true
 
         // plugs lat/long from above into weather API to pull weather data 
@@ -113,8 +108,6 @@ var pullRequest = (cityName) => {
             url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=676c57c39d556b42d524ee448e04b39d`,
             method: 'GET',
         }).then(function (response) {
-            console.log('AJAX Response \n-------------');
-            console.log(response);
             weatherData = response;
             currentWind = weatherData.current.wind_speed;
             currentHumidity = weatherData.current.humidity;
