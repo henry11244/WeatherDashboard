@@ -14,6 +14,8 @@ var miliSecondsInDay = 86400000
 var todays = new Date(UniTime + miliSecondsInDay * 3)
 console.log(todays)
 
+var locationSearches = []
+if (JSON.parse(localStorage.getItem('locationSearches') !== null)) { locationSearches = JSON.parse(localStorage.getItem('locationSearches')) }
 
 for (var x = 0; x < 6; x++) {
     var section = $('<section>');
@@ -27,6 +29,15 @@ for (var x = 0; x < 6; x++) {
     }
 }
 
+function newP() {
+    var newP = $('<p>');
+    newP.text('Enter valid city name').addClass('invalidCity');
+    $('form').append(newP);
+    $('.invalidCity').css('display', 'none');
+
+}
+
+newP()
 
 var cityInputValue = document.querySelector('#cityInputValue')
 
@@ -40,6 +51,8 @@ $('#cityInput').submit(function (e) {
     console.log(city)
     success = false;
     pullRequest(city)
+    $('.invalidCity').css('display', 'none')
+    $('button').remove()
 })
 
 
@@ -49,13 +62,14 @@ var pullRequest = (cityName) => {
         method: 'GET',
     }).then(function (response) {
         console.log(response);
-        console.log(response.status);
         cityDetails = response
+        responseStatus = response.status
         lat = response[0].lat
         lon = response[0].lon
         console.log(lat)
         console.log(lon)
         success = true
+
         $.ajax({
             url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=676c57c39d556b42d524ee448e04b39d`,
             method: 'GET',
@@ -94,11 +108,19 @@ var pullRequest = (cityName) => {
                 $(`.${i}Data`).children().eq(2).text('Wind: ' + windArray[i] + 'MPH');
                 $(`.${i}Data`).children().eq(3).text('Humidity: ' + humidityArray[i] + "%");
                 $(`.${i}Data`).children().eq(4).text('UV Index: ' + uvArray[i]);;
-
             }
 
         });
+    }).done(function () {
+        locationSearches.unshift(cityName);
+        localStorage.setItem('locationSearches', JSON.stringify(locationSearches))
+        for (var i = 0; i < locationSearches.length; i++) {
+            var button = $('<button>')
+            button.text(locationSearches[i])
+            $('#priorSearches').append(button)
+        }
     })
+        .fail(function () { $('.invalidCity').css('display', 'block') })
 }
 
 
