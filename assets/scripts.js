@@ -150,7 +150,7 @@ var pullRequest = (cityName) => {
                 $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`).addClass('text');
                 $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH').addClass('text');
                 $(`.${i}Data`).children().eq(4).text('Humidity: ' + humidityArray[i] + "%").addClass('text');
-                $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]).addClass('col-7 ml-0 pl-0 text');
+                $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]).addClass('col-12 ml-0 pl-0 text');
                 if (uvArray[i] > 10) {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'purple').css('height', '25px')
                 }
