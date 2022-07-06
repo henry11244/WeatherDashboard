@@ -96,7 +96,7 @@ $('#cityInput').submit(submit)
 // request to pull latitude and longitude based on city search
 var pullRequest = (cityName) => {
     $.ajax({
-        url: `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=676c57c39d556b42d524ee448e04b39d`,
+        url: `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=676c57c39d556b42d524ee448e04b39d`,
         method: 'GET',
     }).then(function (response) {
         console.log(response);
