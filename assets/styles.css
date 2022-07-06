@@ -2,15 +2,40 @@
     display: none
 }
 
-#priorSearches {
-    display: none
+#priorSearchesHeader {
+    font-weight: bold;
 }
 
 .text {
-    font-size: 3vh;
+    font-size: 15px;
 }
 
 .dailyForecast {
     display: flex;
     height: 1px
+}
+
+button {
+    width: 50%;
+    border: dotted 1px red;
+    box-shadow: 2px 2px;
+
+}
+
+button:hover {
+    background-color: yellow;
+}
+
+button:active {
+    background-color: red;
+}
+
+#priorSearches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+
 }

@@ -57,6 +57,7 @@ var cityInputValue = document.querySelector('#cityInputValue')
 
 function submit(e) {
     e.preventDefault();
+    $('#priorSearchesHeader').css('display', 'block');
     tempArray = [];
     windArray = [];
     humidityArray = [];
@@ -151,7 +152,7 @@ var pullRequest = (cityName) => {
     }).done(function () {
         repeat = false
         for (var i = 0; i < locationSearches.length; i++) {
-            if (cityName.trim() == locationSearches[i].trim()) { repeat = true }
+            if (cityName.trim().toUpperCase() == locationSearches[i].trim().toUpperCase()) { repeat = true }
         }
         if (repeat == false) {
             locationSearches.unshift(cityName);
@@ -169,8 +170,8 @@ var pullRequest = (cityName) => {
 
     })
         .fail(function () {
-            $('.invalidCity').css('display', 'block');
-            $('#priorSearches').text = '    ';
+            $('.invalidCity').css('display', 'block').css('color', 'red');
+            $('#priorSearchesHeader').css('display', 'none');
         })
 }
 
