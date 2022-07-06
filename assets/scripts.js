@@ -54,6 +54,7 @@ function submit(e) {
     windArray = [];
     humidityArray = [];
     uvArray = []
+    iconArray = []
     city = cityInputValue.value
     console.log(city)
     success = false;
@@ -119,24 +120,21 @@ var pullRequest = (cityName) => {
 
                 imgs[i].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[i]}@2x.png`)
 
-
-
-
                 $(`.${i}Data`).children().eq(0).text(new Date(UniTime + miliSecondsInDay * i).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" }));
                 $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`);
                 $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH');
                 $(`.${i}Data`).children().eq(4).text('Humidity: ' + humidityArray[i] + "%");
                 $(`.${i}Data`).children().eq(5).text('UV Index: ' + uvArray[i]);
-                if (uvArray[1] > 10) {
+                if (uvArray[i] > 10) {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'purple')
                 }
-                else if (uvArray[1] > 7) {
+                else if (uvArray[i] > 7) {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'red')
                 }
-                if (uvArray[1] > 5) {
+                if (uvArray[i] > 5) {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'orange')
                 }
-                else if (uvArray[1] > 2) {
+                else if (uvArray[i] > 2) {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'yellow')
                 }
                 else {
@@ -148,12 +146,21 @@ var pullRequest = (cityName) => {
 
         });
     }).done(function () {
-        locationSearches.unshift(cityName);
-        localStorage.setItem('locationSearches', JSON.stringify(locationSearches))
+        repeat = false
+        for (var i = 0; i < locationSearches.length; i++) {
+            if (cityName == locationSearches[i]) { repeat = true }
+        }
+        if (repeat == false) {
+            locationSearches.unshift(cityName);
+            localStorage.setItem('locationSearches', JSON.stringify(locationSearches))
+        }
         for (var i = 0; i < locationSearches.length; i++) {
             var button = $('<button>')
-            button.submit(submit)
-            button.text(locationSearches[i])
+            button.click(function () {
+                cityInputValue.value = this.className
+                $('#cityInput').submit()
+            })
+            button.text(locationSearches[i]).addClass(locationSearches[i])
             $('#priorSearches').append(button)
         }
     })
