@@ -19,7 +19,9 @@ button {
     width: 50%;
     border: dotted 1px red;
     box-shadow: 2px 2px;
-
+    margin: 5px;
+    background-color: rgb(96, 161, 191);
+    color: white
 }
 
 button:hover {
@@ -34,8 +36,7 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 100%;
+
 }
 
 body {
@@ -49,4 +50,9 @@ body {
 
 .display-4 {
     font-weight: bold;
+}
+
+input[type="text"] {
+    background-color: rgba(96, 161, 191, 0.598);
+
 }
