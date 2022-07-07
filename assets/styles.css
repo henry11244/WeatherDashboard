@@ -7,7 +7,7 @@
 }
 
 .text {
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .dailyForecast {
@@ -23,6 +23,7 @@ button {
     background-color: rgb(96, 161, 191);
     color: white;
     border-radius: 25%;
+    font-size: 13px;
 }
 
 button:hover {
