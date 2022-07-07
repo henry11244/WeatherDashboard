@@ -38,7 +38,6 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 body {
@@ -56,5 +55,13 @@ body {
 
 input[type="text"] {
     background-color: rgba(96, 161, 191, 0.598);
+}
+
+#current {
+    display: block;
+    position: absolute;
+    right: 5%;
+    margin-top: -3%;
+    height: 40%;
 
 }

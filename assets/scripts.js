@@ -137,8 +137,9 @@ var pullRequest = (cityName) => {
             // adds weather data/icon to HTML webpage
             for (var i = 0; i < 6; i++) {
                 var imgs = document.querySelectorAll('img')
-                imgs[i].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[i]}@2x.png`)
-                imgs[i].style.display = ('block')
+                imgs[i + 1].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[i]}@2x.png`)
+                imgs[0].setAttribute('src', `https://openweathermap.org/img/wn/${iconArray[0]}@2x.png`)
+                imgs[i + 1].style.display = ('block')
                 $(`.${i}Data`).children().eq(0).text(new Date(UniTime + miliSecondsInDay * i).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" })).addClass('text');
                 $(`.${i}Data`).children().eq(2).html(`Temperature: ${tempArray[i]}<sup>o</sup>F`).addClass('text');
                 $(`.${i}Data`).children().eq(3).text('Wind: ' + windArray[i] + 'MPH').addClass('text');
@@ -157,7 +158,7 @@ var pullRequest = (cityName) => {
                     $(`.${i}Data`).children().eq(5).css('background-color', 'yellow').css('height', '25px')
                 }
                 else {
-                    $(`.${i}Data`).children().eq(5).css('background-color', 'green').css('height', '25px')
+                    $(`.${i}Data`).children().eq(5).css('background-color', 'rgb(134, 255, 206)').css('height', '25px')
                 }
             }
         });
